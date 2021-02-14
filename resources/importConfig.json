@@ -1,0 +1,20 @@
+{
+  "preprocess_exclude_columns": [
+    {
+      "target_file": "infos",
+      "exclude_columns": [
+        "promotion"
+      ]
+    }
+  ],
+  "data_preprocessors": [
+    {
+      "order": 1,
+      "processor": "DataTimePreprocessor",
+      "target_files": [
+        "orders"
+      ]
+    }
+  ],
+  "join_column": "itemID"
+}
