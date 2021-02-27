@@ -1,6 +1,7 @@
 import pandas as pandas
 
 from ApplicationConstants import CSV_FILE_SEPARATOR, INFOS_FILE_TYPE, ITEMS_FILE_TYPE, ORDERS_FILE_TYPE
+from Logger import rootLogger
 from cache.ConfigCache import config_cache
 from preprocessors.PreprocessorLoader import preprocessor_loader
 
@@ -15,6 +16,12 @@ class DataProcessor:
             :param orders_file_path: path to a csv file that contains orders info.
             :param out_file_path: output file path.
         """
+
+        rootLogger.info(f"process_data command execution started with following arguments: \n"
+                        f"\tinfos_file_path = {infos_file_path}\n"
+                        f"\titems_file_path = {items_file_path}\n"
+                        f"\torders_file_path = {orders_file_path}\n"
+                        f"\tout_file_path = {out_file_path}")
 
         infos_df = self.download_file(infos_file_path)
         items_df = self.download_file(items_file_path)
@@ -48,13 +55,21 @@ class DataProcessor:
                 for column in file_excluded_columns:
                     del df_tuple[0][column]
 
+                rootLogger.info(f"Following columns excluded from {df_tuple[1]} file: {file_excluded_columns}")
+
     def join_dataframes(self, *dfs):
+        rootLogger.info(f"Joining dataframes by {config_cache.get_join_column()} column...")
+
         result_df = dfs[0]
 
         for i in range(1, len(dfs)):
             result_df = pandas.merge(result_df, dfs[i], on=config_cache.get_join_column())
 
+        rootLogger.info(f"Joining dataframes finished")
+
         return result_df
 
     def save_result_df(self, filepath, df):
         df.to_csv(filepath, index=False)
+
+        rootLogger.info(f"Result was successfully saved to {filepath}")

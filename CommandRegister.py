@@ -9,6 +9,3 @@ class CommandHandler:
         fire.Fire({
             "process_data": DataProcessor().process_data
         })
-
-
-CommandHandler().register_commands()
