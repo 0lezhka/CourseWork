@@ -4,6 +4,7 @@ from ApplicationConstants import CONFIGS_FILE_PATH
 
 PREPROCESS_EXCLUDE_COLUMNS = "preprocess_exclude_columns"
 DATA_PREPROCESSORS_PARAM = "data_preprocessors"
+DATA_POSTROCESSORS_PARAM = "data_postprocessors"
 JOIN_COLUMN = "join_column"
 
 
@@ -19,6 +20,9 @@ class ConfigCache:
 
     def get_preprocessors(self):
         return self.__configs[DATA_PREPROCESSORS_PARAM]
+
+    def get_postprocessors(self):
+        return self.__configs[DATA_POSTROCESSORS_PARAM]
 
     def get_join_column(self):
         return self.__configs[JOIN_COLUMN]

@@ -16,5 +16,11 @@
       ]
     }
   ],
-  "join_column": "itemID"
+  "join_column": "itemID",
+  "data_postprocessors": [
+    {
+      "order": 1,
+      "processor": "ZScoreNormalizerPostprocessor"
+    }
+  ]
 }
