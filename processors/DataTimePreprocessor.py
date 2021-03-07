@@ -31,4 +31,4 @@ class DataTimePreprocessor:
         df.insert(1, column_name, df[TIME_COLUMN_NAME].to_list())
         df[column_name] = \
             df[column_name].apply(
-                lambda date_time_str: re.search(DATE_TIME_REGEX, date_time_str).group(column_name))
+                lambda date_time_str: int(re.search(DATE_TIME_REGEX, date_time_str).group(column_name)))

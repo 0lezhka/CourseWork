@@ -3,7 +3,7 @@ import pandas as pandas
 from ApplicationConstants import CSV_FILE_SEPARATOR, INFOS_FILE_TYPE, ITEMS_FILE_TYPE, ORDERS_FILE_TYPE
 from Logger import rootLogger
 from cache.ConfigCache import config_cache
-from preprocessors.PreprocessorLoader import preprocessor_loader
+from processors.ProcessorLoader import processor_loader
 
 
 class DataProcessor:
@@ -33,11 +33,16 @@ class DataProcessor:
 
         result_df = self.join_dataframes(infos_df, items_df, orders_df)
 
+        self.postprocess_data(result_df)
+
         self.save_result_df(out_file_path, result_df)
 
     def preprocess_data(self, *dfs_tuples):
         for df_tuple in dfs_tuples:
-            preprocessor_loader.preprocess(df_tuple[0], df_tuple[1])
+            processor_loader.preprocess(df_tuple[0], df_tuple[1])
+
+    def postprocess_data(self, df):
+        processor_loader.postprocess(df)
 
     def download_file(self, file_path):
         return pandas.read_csv(file_path, sep=CSV_FILE_SEPARATOR)
