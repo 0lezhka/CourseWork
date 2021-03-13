@@ -5,16 +5,13 @@ from ApplicationConstants import DATE_TIME_REGEX
 DATE_TIME_COLUMNS = [
     "transactionYear",
     "transactionMonth",
-    "transactionDay",
-    "transactionHour",
-    "transactionMinute",
-    "transactionSecond"
+    "transactionDay"
 ]
 
 TIME_COLUMN_NAME = "time"
 
 
-class DataTimePreprocessor:
+class DateTimePreprocessor:
     def process(self, df):
         for column_name in DATE_TIME_COLUMNS:
             self.__insert_date_column(df, column_name)
