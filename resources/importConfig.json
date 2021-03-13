@@ -1,0 +1,61 @@
+{
+  "preprocess_exclude_columns": [
+    {
+      "target_file": "orders",
+      "exclude_columns": [
+        "transactID",
+        "salesPrice"
+      ]
+    }
+  ],
+  "data_preprocessors": [
+    {
+      "order": 1,
+      "processor": "FillNullsPreprocessor",
+      "target_files": [
+        "infos"
+      ]
+    },
+    {
+      "order": 2,
+      "processor": "DateTimePreprocessor",
+      "target_files": [
+        "orders"
+      ]
+    }
+  ],
+  "join_column": "itemID",
+  "data_postprocessors": [
+    {
+      "order": 1,
+      "processor": "AggregationPostprocessor"
+    },
+    {
+      "order": 2,
+      "processor": "MinMaxNormalizerPostprocessor"
+    }
+  ],
+  "data_normalization": {
+    "skip_columns": [
+      "promotion"
+    ]
+  },
+  "data_aggregation": {
+    "group_by_columns": [
+      "itemID",
+      "simulationPrice",
+      "promotion",
+      "brand",
+      "manufacturer",
+      "customerRating",
+      "category1",
+      "category2",
+      "category3",
+      "recommendedRetailPrice",
+      "transactionDay",
+      "transactionMonth",
+      "transactionYear"
+    ],
+    "sum_column": "order"
+  }
+}
